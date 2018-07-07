@@ -1,0 +1,63 @@
+﻿@model CSharpProjectWAccounts.Models.Items[]
+@{
+    ViewBag.Title = "Baking";
+    ViewBag.ShoppingCart = true;
+}
+
+<div class="container text-center">
+    <h2>@ViewBag.Title</h2>
+    <p>@ViewBag.Message</p>
+
+    @using (Html.BeginForm())
+    {
+    <div class="row bg-red">
+        <h3>Ingredients</h3>
+        @foreach (var ingType in Model.Where(m => m.Type == "Ingredient"))
+        {
+            <div class="form-group">
+                <div class="col-md-2 h-2">
+                    <h4>@ingType.ItemName</h4>
+                    <img src="/Images/@ingType.CoverImageFileName" alt="@ingType.ItemName" class="h-5 image-responsive" />
+                    @if (ingType.Quantity > 0)
+    {
+                <h3>$@ingType.Price.00</h3>
+                <p class="mb-5"><bold>@ingType.Description</bold></p>
+                <button type="submit" class="btn btn-primary auto" name="Item" value="@ingType.Id">Add to Cart</button>
+}
+else
+{
+                <h3>$@ingType.Price.00</h3>
+                <p class="mb-5"><bold>@ingType.Description</bold></p>
+                <h5>OUT OF STOCK</h5>
+}
+                </div>
+            </div>
+         }
+    </div>
+    <div class="row bg-lightgreen">
+        <h3>Spices</h3>
+        @foreach (var ingType in Model.Where(m => m.Type == "Spice"))
+        {
+            <div class="form-group">
+                <div class="col-md-2 h-2">
+                    <h4>@ingType.ItemName</h4>
+                    <img src="/Images/@ingType.CoverImageFileName" alt="@ingType.ItemName" class="h-5 image-responsive" />
+                    @if (ingType.Quantity > 0)
+    {
+                <h3>$@ingType.Price.00</h3>
+                <p class="mb-5"><bold>@ingType.Description</bold></p>
+                <button type="submit" class="btn btn-primary auto" name="Item" value="@ingType.Id">Add to Cart</button>
+}
+else
+{
+                <h3>$@ingType.Price.00</h3>
+                <p class="mb-5"><bold>@ingType.Description</bold></p>
+                <h5>OUT OF STOCK</h5>
+}
+
+                </div>
+            </div>
+         }
+        </div>
+    }
+</div>

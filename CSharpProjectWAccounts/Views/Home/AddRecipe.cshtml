@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Add Recipe";
+}
+
+<div class="container text-center">
+    <h2 class="p-3">@ViewBag.Message</h2>
+
+    <div class="row form-group">
+        @using (var inventory = new GroceryContext())
+        {
+            var getInventoryList = inventory.GroceryItems.ToList();
+            List<SelectListItem> beefInInventory = new List<SelectListItem>();
+            List<SelectListItem> chickenInInventory = new List<SelectListItem>();
+            List<SelectListItem> porkInInventory = new List<SelectListItem>();
+            List<SelectListItem> otherInInventory = new List<SelectListItem>();
+            List<SelectListItem> fruitInInventory = new List<SelectListItem>();
+            List<SelectListItem> vegeInInventory = new List<SelectListItem>();
+            List<SelectListItem> grainInInventory = new List<SelectListItem>();
+            List<SelectListItem> ingredientInInventory = new List<SelectListItem>();
+            foreach (var stock in getInventoryList)
+            {
+                if (stock.Food == "Meat")
+                {
+                    if (stock.Type == "Cow")
+                    {
+                        beefInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                    if (stock.Type == "Chicken")
+                    {
+                        chickenInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                    if (stock.Type == "Pig")
+                    {
+                        porkInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                    if (stock.Type == "Fish" || stock.Type == "Turkey")
+                    {
+                        otherInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+
+                }
+                if (stock.Food == "Plant")
+                {
+                    if (stock.Type == "Fruit")
+                    {
+                        fruitInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                    if (stock.Type == "Vegetable")
+                    {
+                        vegeInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                    if (stock.Type == "Grain")
+                    {
+                        grainInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                    }
+                }
+                if (stock.Food == "Ingredient")
+                {
+                    ingredientInInventory.Add(new SelectListItem { Text = stock.ItemName, Value = stock.ItemName });
+                }
+            }
+            using (Html.BeginForm())
+            {
+
+                <label for="Name">
+                    Name Your Recipe
+                    <input class="form-control" type="text" name="Name" placeholder="Name Your Recipe" />
+                </label>
+                <label for="Description">
+                    Describe Recipe
+                    <input class="form-control" type="text" name="Description" placeholder="Recipe Directions" />
+                </label>
+                <div class="p-3">
+                    <h5>Add Meat</h5>
+                    @Html.DropDownList("Beef", beefInInventory, "-- Select Beef --")
+                    @Html.DropDownList("Chicken", chickenInInventory, "-- Select Chicken --")
+                    @Html.DropDownList("Pork", porkInInventory, "-- Select Pork --")
+                    @Html.DropDownList("Other", otherInInventory, "-- Select Other --")
+                </div>
+                <div class="p-3">
+                    <h5>Add Ingredients</h5>
+                    @Html.DropDownList("Vegetable", vegeInInventory, "-- Select Vegetables --")
+                    @Html.DropDownList("Vegetables", vegeInInventory, "-- Select Vegetables --")
+                    @Html.DropDownList("Ingredient", ingredientInInventory, "-- Select Ingredient --")
+                    @Html.DropDownList("Ingredients", ingredientInInventory, "-- Select Ingredient --")
+                    @Html.DropDownList("Grain", grainInInventory, "-- Select Grain --")
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+        }
+    </div>
+</div>

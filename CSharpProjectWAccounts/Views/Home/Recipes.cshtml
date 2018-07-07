@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Recipes";
+    ViewBag.ShoppingCart = true;
+}
+
+<div class="container text-center">
+    <h2>@ViewBag.Title</h2>
+    <h3>@ViewBag.Message</h3>
+
+    <p>Pick Your Favorite</p>
+    <div class="row">
+        @using (var _groceryRepoItems = new GroceryContext())
+        {
+            @*puts inventory into an array.*@
+        var inventory = _groceryRepoItems.GroceryItems.ToArray();
+        var recipeList = _groceryRepoItems.ListOfRecipes.ToArray();
+        foreach (var recipeInfo in recipeList)
+        {
+            var recipeIngredientList = recipeInfo.Item.ToArray();
+                <div class="col-sm-4">
+                    <h4>@recipeInfo.RecipeName - $@recipeIngredientList.Sum(x => x.Price).00</h4>
+                    <div class="row">
+                        @foreach (var item in recipeIngredientList)
+    {
+        if (item.Quantity > 0)
+                {
+                            <div class="col-sm-4">
+                                <img src="/Images/@item.CoverImageFileName" alt="@item.ItemName" class="image-responsive h-7" /> <p>@item.ItemName $@item.Price.00</p>
+                            </div>
+        }
+        else
+        {
+                            <div class="col-sm-4">
+                                <img src="/Images/@item.CoverImageFileName" alt="@item.ItemName" class="image-responsive h-7" /> <p>@item.ItemName - OUT OF STOCK</p>
+                            </div>
+        }
+}
+                    </div>
+                    <p>@recipeInfo.Description</p>
+                    @*sends recipeName*@
+                    @using (Html.BeginForm())
+                    {
+                    <button type="submit" class="btn btn-primary" value="@recipeInfo.RecipeName" name="recipeName">Add</button>
+                    }
+                </div>
+            }
+        }
+                <div class="col-sm-4">
+                    <h4>Create Your Own Recipe</h4>
+                    @Html.ActionLink("Create Recipe", "AddRecipe", null, new { @class = "btn btn-primary" })
+                </div>
+    </div>
+</div>

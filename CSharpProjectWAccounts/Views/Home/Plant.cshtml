@@ -1,0 +1,87 @@
+﻿@model CSharpProjectWAccounts.Models.Items[]
+@{
+    ViewBag.Title = "Plant";
+    ViewBag.ShoppingCart = true;
+}
+
+<div class="container text-center">
+    <h2>@ViewBag.Title</h2>
+    <p>@ViewBag.Message</p>
+    @using (Html.BeginForm())
+    {
+        <div class="row bg-red">
+            <h3>Fruit</h3>
+                @foreach (var fruitType in Model.Where(m => m.Type == "Fruit"))
+                {
+                    <div class="form-group">
+                        <div class="col-md-2 h-2">
+                            <h4>@fruitType.ItemName</h4>
+                            <img src="/Images/@fruitType.CoverImageFileName" alt="@fruitType.ItemName" class="h-5 image-responsive" />
+                            @if (fruitType.Quantity > 0)
+    {
+                        <h3>$@fruitType.Price.00</h3>
+                        <p class="mb-5"><bold>@fruitType.Description</bold></p>
+                        <button type="submit" class="btn btn-primary auto" name="Item" value="@fruitType.Id">Add to Cart</button>
+}
+else
+{
+                        <h3>$@fruitType.Price.00</h3>
+                        <p class="mb-5"><bold>@fruitType.Description</bold></p>
+                        <h5>OUT OF STOCK</h5>
+}
+
+                        </div>
+                    </div>
+                }
+        </div>
+        <div class="row bg-lightgreen">
+            <h3>Vegetable</h3>
+                @foreach (var vegeType in Model.Where(m => m.Type == "Vegetable"))
+                {
+                    <div class="form-group">
+                        <div class="col-md-2 h-2">
+                            <h4>@vegeType.ItemName</h4>
+                            <img src="/Images/@vegeType.CoverImageFileName" alt="@vegeType.ItemName" class="h-5 image-responsive" />
+                            @if (vegeType.Quantity > 0)
+    {
+                        <h3>$@vegeType.Price.00</h3>
+                        <p class="mb-5"><bold>@vegeType.Description</bold></p>
+                        <button type="submit" class="btn btn-primary auto" name="Item" value="@vegeType.Id">Add to Cart</button>
+}
+else
+{
+                        <h3>$@vegeType.Price.00</h3>
+                        <p class="mb-5"><bold>@vegeType.Description</bold></p>
+                        <h5>OUT OF STOCK</h5>
+}
+                        </div>
+                    </div>
+                }
+        </div>
+        <div class="row bg-lightgrey">
+            <h3>Grains</h3>
+            @foreach (var grainType in Model.Where(m => m.Type == "Grain"))
+             {
+                <div class="form-group">
+                    <div class="col-md-2 h-2">
+                        <h4>@grainType.ItemName</h4>
+                        <img src="/Images/@grainType.CoverImageFileName" alt="@grainType.ItemName" class="h-5 image-responsive" />
+                        @if (grainType.Quantity > 0)
+    {
+                    <h3>$@grainType.Price.00</h3>
+                    <p class="mb-5"><bold>@grainType.Description</bold></p>
+                    <button type="submit" class="btn btn-primary auto" name="Item" value="@grainType.Id">Add to Cart</button>
+}
+
+else
+{
+                    <h3>$@grainType.Price.00</h3>
+                    <p class="mb-5"><bold>@grainType.Description</bold></p>
+                    <h5>OUT OF STOCK</h5>
+}
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    </div>

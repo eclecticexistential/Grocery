@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Shopping Cart";
+    ViewBag.ShoppingCart = false;
+}
+
+<div class="container text-center">
+    <h2>@ViewBag.Title</h2>
+    @using (var _groceryRepoItems = new GroceryContext())
+    {
+        @*gets one instance of any item in shopping cart*@
+        var singleItemDetails = _groceryRepoItems.GroceryItems.Include("ShoppingCartItems").Where(gi => gi.ShoppingCartItems.Any());
+        var cartItems = _groceryRepoItems.ShoppingCartItems.ToArray();
+        @*determines what message to show during shopping experience*@
+        if (cartItems.Length == 0)
+        {
+            <h3>Thank You For Shopping With Us!</h3>
+        }
+        else
+        {
+            <p>@ViewBag.Message</p>
+            <h4>Total Price of Purchase: $@cartItems.Sum(x => x.Item.Price).00</h4>
+        }
+
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+                @foreach (var item in singleItemDetails)
+                {
+                    var amountItems = cartItems.Count(x => x.Item.Id == item.Id);
+                    var itemPrice = item.Price * amountItems;
+                    <tr>
+                        <td><img src="/Images/@item.CoverImageFileName" alt="@item.ItemName" class="image-responsive h-7" /></td>
+                        <td>@item.ItemName</td>
+                        <td>$@itemPrice.00</td>
+
+                        @using (Html.BeginForm())
+                        {
+                            <td><input value="@item.Id" name="ItemId" class="hidden" /></td>
+                            <td>
+                                <button type="submit" class="btn btn-primary" value="sub" name="math">-</button>
+                            </td>
+                            <td>@amountItems</td>
+                            <td>
+                                @if (item.Quantity > 0)
+    {
+                            <button type="submit" class="btn btn-primary" value="add" name="math">+</button>
+
+}
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-warning" value="del" name="math">Delete</button>
+                            </td>
+                        }
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        if (cartItems.Length != 0)
+        {
+            using (Html.BeginForm())
+            {
+                <input value="000" name="ItemId" class="hidden" />
+                <button type="submit" class="btn btn-warning" value="checkout" name="math">Checkout</button>
+            }
+        }
+    }
+</div>
