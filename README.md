@@ -22,4 +22,4 @@ Users can share their favorite meal ideas by adding personalized ingredients and
 
 Latest Update: In order to add items to the shopping cart now, users are required to login. To-date, registration has no email or phone verification set up.
 
-![User Login] (https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+![User Login](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
