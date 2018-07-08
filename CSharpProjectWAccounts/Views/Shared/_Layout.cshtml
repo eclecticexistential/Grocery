@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using System.Web;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -26,18 +29,24 @@
                     <li>@Html.ActionLink("Meat", "Meat", "Home")</li>
                     <li>@Html.ActionLink("Baking", "Baking", "Home")</li>
                     <li>@Html.ActionLink("Recipes", "Recipes", "Home")</li>
-                    @*initializes context, makes instance of grocery items, turns into list for count method.
-                    establishes when to show shopping cart button*@
+                    @*checks to see who is logged in
+                            initializes context, makes instance of grocery items, turns into list for count method.
+                        establishes when to show shopping cart button*@
                     @using (var _groceryRepoItems = new GroceryContext())
                     {
-                        var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
-                        var groceryQueryShoppingCart = groceryQuery.ToList();
-                        if (groceryQueryShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
+                        var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                        if (user != null)
                         {
-                            <li>
-                                @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", null, new { @class = "btn btn-default" })
-                            </li>
+                            var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
+                            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Id).ToList();
+                            if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
+                            {
+                                <li>
+                                    @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", User, new { @class = "btn btn-default" })
+                                </li>
+                            }
                         }
+
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -45,7 +54,7 @@
         </div>
     </div>
     @*<div class="container body-content">*@
-	<div class="container-fluid">
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
