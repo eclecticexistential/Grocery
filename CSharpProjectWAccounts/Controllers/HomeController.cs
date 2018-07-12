@@ -1,16 +1,12 @@
-﻿
-using CSharpProjectWAccounts.Models;
-using System;
-using System.Collections.Generic;
+﻿using CSharpProjectWAccounts.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CSharpProjectWAccounts.Controllers
 {
     public class HomeController : Controller
     {
-		static HomeController()
+        static HomeController()
         {
             using (var _groceryRepoItems = new GroceryContext())
             {
@@ -64,21 +60,11 @@ namespace CSharpProjectWAccounts.Controllers
 		[Authorize]
         public ActionResult Plant(string Item)
         {
-            //gets id number from string post
-            int id = Int32.Parse(Item);
             if (ModelState.IsValid)
             {
-                using (var _groceryRepoItems = new GroceryContext())
-                {
-                    Items inventoryItem = _groceryRepoItems.GroceryItems.SingleOrDefault(m => m.Id == id);
-                    ShoppingCartItem addThis = new ShoppingCartItem
-                    {
-                        Item = inventoryItem
-                    };
-                    _groceryRepoItems.ShoppingCartItems.Add(addThis);
-                    inventoryItem.Quantity -= 1;
-                    _groceryRepoItems.SaveChanges();
-                }
+                var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
+                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Plant");
             }
             else
@@ -99,20 +85,11 @@ namespace CSharpProjectWAccounts.Controllers
 		[Authorize]
         public ActionResult Meat(string Item)
         {
-            int id = Int32.Parse(Item);
             if (ModelState.IsValid)
             {
-                using (var _groceryRepoItems = new GroceryContext())
-                {
-                    Items inventoryItem = _groceryRepoItems.GroceryItems.SingleOrDefault(m => m.Id == id);
-                    ShoppingCartItem addThis = new ShoppingCartItem
-                    {
-                        Item = inventoryItem
-                    };
-                    _groceryRepoItems.ShoppingCartItems.Add(addThis);
-                    inventoryItem.Quantity -= 1;
-                    _groceryRepoItems.SaveChanges();
-                }
+                var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
+                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Meat");
             }
             else
@@ -134,20 +111,11 @@ namespace CSharpProjectWAccounts.Controllers
 		[Authorize]
         public ActionResult Baking(string Item)
         {
-            int id = Int32.Parse(Item);
             if (ModelState.IsValid)
             {
-                using (var _groceryRepoItems = new GroceryContext())
-                {
-                    Items inventoryItem = _groceryRepoItems.GroceryItems.SingleOrDefault(m => m.Id == id);
-                    ShoppingCartItem addThis = new ShoppingCartItem
-                    {
-                        Item = inventoryItem
-                    };
-                    _groceryRepoItems.ShoppingCartItems.Add(addThis);
-                    inventoryItem.Quantity -= 1;
-                    _groceryRepoItems.SaveChanges();
-                }
+                var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
+                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Baking");
             }
             else
@@ -171,16 +139,11 @@ namespace CSharpProjectWAccounts.Controllers
                 using (var _groceryRepoItems = new GroceryContext())
                 {
                     var matchRecipeName = _groceryRepoItems.ListOfRecipes.SingleOrDefault(m => m.RecipeName == recipeName);
+                    var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
+                    var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
                     foreach (var name in matchRecipeName.Item)
                     {
-                        Items inventoryItem = _groceryRepoItems.GroceryItems.SingleOrDefault(m => m.ItemName == name.ItemName);
-                        ShoppingCartItem addThis = new ShoppingCartItem
-                        {
-                            Item = inventoryItem
-                        };
-                        _groceryRepoItems.ShoppingCartItems.Add(addThis);
-                        inventoryItem.Quantity -= 1;
-                        _groceryRepoItems.SaveChanges();
+                        ItemToShoppingCartItemFactory.TransformItem(name.Id.ToString(), user);
                     }
                 }
                 return RedirectToAction("Recipes");
@@ -190,6 +153,7 @@ namespace CSharpProjectWAccounts.Controllers
                 return View();
             }
         }
+
 		public ActionResult AddRecipe()
         {
             ViewBag.Message = "Create A New Recipe";
@@ -210,7 +174,9 @@ namespace CSharpProjectWAccounts.Controllers
                 return View();
             }
         }
-		public ActionResult ShoppingCart()
+
+        [Authorize]
+        public ActionResult ShoppingCart()
         {
             ViewBag.Message = "Items in Your Shopping Cart";
             return View();
@@ -222,55 +188,10 @@ namespace CSharpProjectWAccounts.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var _shoppingCartItems = new GroceryContext())
-                {
-                    //gets the item from inventory
-                    Items inventoryItem = _shoppingCartItems.GroceryItems.SingleOrDefault(m => m.Id == ItemId);
-                    //finds item to be removed
-                    ShoppingCartItem itemRemove = _shoppingCartItems.ShoppingCartItems.FirstOrDefault(m => m.ItemId == ItemId);
-                    //transforms inventory item to shopping cart item
-                    ShoppingCartItem cartItem = new ShoppingCartItem
-                    {
-                        Item = inventoryItem
-                    };
-                    if (math == "add")
-                    {
-                        _shoppingCartItems.ShoppingCartItems.Add(cartItem);
-                        //logic for when quantity reduction goes over quantity amount is not yet created.
-                        inventoryItem.Quantity -= 1;
-                        _shoppingCartItems.SaveChanges();
-                    }
-                    else if (math == "sub")
-                    {
-                        _shoppingCartItems.ShoppingCartItems.Remove(itemRemove);
-                        inventoryItem.Quantity += 1;
-                        _shoppingCartItems.SaveChanges();
-                        
-                    }
-                    else if (math == "del")
-                    {
-                        //removes all instances of item in shopping cart. probably a better way to do this.
-                        foreach(var item in _shoppingCartItems.ShoppingCartItems)
-                        {
-                            if(item.ItemId == ItemId)
-                            {
-                                _shoppingCartItems.ShoppingCartItems.Remove(item);
-                                inventoryItem.Quantity += 1;
-                            }
-                        }
-                        _shoppingCartItems.SaveChanges();
-                    }
-                    //deletes all items from shopping cart. ItemId is a potential placemarker for shopping cart id
-                    else if (math == "checkout" && ItemId == 000)
-                    {
-                        foreach (var item in _shoppingCartItems.ShoppingCartItems)
-                        {
-                            _shoppingCartItems.ShoppingCartItems.Remove(item);
-                        }
-                        _shoppingCartItems.SaveChanges();
-                    }
-                    return RedirectToAction("ShoppingCart");
-                }
+                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                var cartLogic = new ShoppingCartLogic();
+                cartLogic.AdjustCart(ItemId, user, math);
+                return RedirectToAction("ShoppingCart");
             }
             return View();
         }

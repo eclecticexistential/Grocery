@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNet.Identity;
-@using Microsoft.AspNet.Identity.Owin;
-@using System.Web;
-@{
+﻿@{
     ViewBag.Title = "Shopping Cart";
     ViewBag.ShoppingCart = false;
 }
@@ -10,12 +7,11 @@
     <h2>@ViewBag.Title</h2>
     @using (var _groceryRepoItems = new GroceryContext())
     {
-
-        var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
         if (user != null)
         {
-            var cartItems = _groceryRepoItems.ShoppingCartItems.Where(x => x.UserId == user.Id).ToArray();
-            var singleItemDetails = _groceryRepoItems.GroceryItems.Include("ShoppingCartItems").Where(gi => gi.ShoppingCartItems.Where(x => x.UserId == user.Id).Any());
+            var cartItems = _groceryRepoItems.ShoppingCartItems.Where(x => x.UserId == user).ToArray();
+            var singleItemDetails = _groceryRepoItems.GroceryItems.Include("ShoppingCartItems").Where(gi => gi.ShoppingCartItems.Where(x => x.UserId == user).Any());
 
         @*determines what message to show during shopping experience*@
     if (cartItems.Length == 0)

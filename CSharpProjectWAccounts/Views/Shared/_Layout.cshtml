@@ -34,11 +34,12 @@
                         establishes when to show shopping cart button*@
                     @using (var _groceryRepoItems = new GroceryContext())
                     {
-                        var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                        //var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
                         if (user != null)
                         {
                             var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
-                            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Id).ToList();
+                            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Value).ToList();
                             if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
                             {
                                 <li>
