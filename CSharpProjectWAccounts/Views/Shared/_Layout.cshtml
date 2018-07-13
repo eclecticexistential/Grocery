@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNet.Identity;
-@using Microsoft.AspNet.Identity.Owin;
-@using System.Web;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,10 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Plant", "Plant", "Home")</li>
-                    <li>@Html.ActionLink("Meat", "Meat", "Home")</li>
-                    <li>@Html.ActionLink("Baking", "Baking", "Home")</li>
-                    <li>@Html.ActionLink("Recipes", "Recipes", "Home")</li>
+                    <li>@Html.ActionLink("Plant", "Plant", "Inventory")</li>
+                    <li>@Html.ActionLink("Meat", "Meat", "Inventory")</li>
+                    <li>@Html.ActionLink("Baking", "Baking", "Inventory")</li>
+                    <li>@Html.ActionLink("Recipes", "Recipes", "Inventory")</li>
                     @*checks to see who is logged in
                             initializes context, makes instance of grocery items, turns into list for count method.
                         establishes when to show shopping cart button*@

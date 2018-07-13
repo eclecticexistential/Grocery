@@ -79,7 +79,14 @@ namespace CSharpProjectWAccounts.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if(model.Email == "admin@email.com")
+                    {
+                        return RedirectToAction("UpdateInventory", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

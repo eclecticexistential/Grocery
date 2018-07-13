@@ -15,8 +15,24 @@ namespace CSharpProjectWAccounts
             new RecipeItems { Id = 1, RecipeName = "Chicken Broccoli Rice", Description = "Tasty rice dish. Boil rice until soft. Bake chicken until done. Add together in baking dish with broccoli. Cook until lightly brown."}
             );
             context.GroceryItems.AddOrUpdate(p => p.Id,
-            new Items { Id = 0, ItemName = "Bacon", Type = "Pig", Price = 2, Description = "Tasty pork product. Price per lbs.", Quantity = 20 },
-            new Items { Id = 1, ItemName = "Baloney", Type = "Pig", Price = 1, Description = "Eat fried or straight out of the package. Price per unit.", Quantity = 20 },
+            new Items
+            { Id = 0,
+              ItemName = "Bacon",
+              Type = "Pig",
+              Price = 2,
+              Description = "Tasty pork product. Price per lbs.",
+              Quantity = 20,
+              Food = "Meat"
+            },
+            new Items
+            { Id = 1,
+              ItemName = "Baloney",
+              Type = "Pig",
+              Price = 1,
+              Description = "Eat fried or straight out of the package. Price per unit.",
+              Quantity = 20,
+              Food = "Meat"
+            },
             new Items
             {
                 Id = 2,

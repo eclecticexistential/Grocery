@@ -192,6 +192,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -199,6 +200,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddIngredientList.cs" />
+    <Compile Include="Models\AdminAddItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\ItemToShoppingCartItemFactory.cs" />
@@ -333,12 +335,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\AddRecipe.cshtml" />
-    <Content Include="Views\Home\Baking.cshtml" />
-    <Content Include="Views\Home\Meat.cshtml" />
-    <Content Include="Views\Home\Plant.cshtml" />
-    <Content Include="Views\Home\Recipes.cshtml" />
-    <Content Include="Views\Home\ShoppingCart.cshtml" />
+    <Content Include="Views\Inventory\AddRecipe.cshtml" />
+    <Content Include="Views\Inventory\Baking.cshtml" />
+    <Content Include="Views\Inventory\Meat.cshtml" />
+    <Content Include="Views\Inventory\Plant.cshtml" />
+    <Content Include="Views\Inventory\Recipes.cshtml" />
+    <Content Include="Views\Inventory\ShoppingCart.cshtml" />
+    <Content Include="Views\Home\UpdateInventory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
