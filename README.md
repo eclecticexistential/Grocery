@@ -26,12 +26,12 @@ Users are now required to login before they can add items to Shopping Cart. To-d
 
 Admin access is now available and equipped with a dashboard which appears at login.
 
-![Add Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+![Add Items](https://raw.githubusercontent.com/eclecticexistential/Grocery/master/CSharpProjectWAccounts/Images/README/AddItems.PNG)
 
 Admin can add to or remove items from inventory.
 
-![Remove Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+![Remove Items](https://raw.githubusercontent.com/eclecticexistential/Grocery/master/CSharpProjectWAccounts/Images/README/RemoveItems.PNG)
 
 ...Or pick an item and edit the details.
 
-![Edit Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+![Edit Items](https://raw.githubusercontent.com/eclecticexistential/Grocery/master/CSharpProjectWAccounts/Images/README/EditItems.PNG)
