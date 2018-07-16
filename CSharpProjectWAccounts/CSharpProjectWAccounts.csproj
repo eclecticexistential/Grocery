@@ -207,6 +207,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RecipeItems.cs" />
     <Compile Include="Models\RecipeRepo.cs" />
+    <Compile Include="Models\RemoveItemsForm.cs" />
     <Compile Include="Models\ShoppingCartItem.cs" />
     <Compile Include="Models\ShoppingCartLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -342,6 +343,9 @@
     <Content Include="Views\Inventory\Recipes.cshtml" />
     <Content Include="Views\Inventory\ShoppingCart.cshtml" />
     <Content Include="Views\Home\UpdateInventory.cshtml" />
+    <Content Include="Views\Home\EditInventory.cshtml" />
+    <Content Include="Views\Home\RemoveItems.cshtml" />
+    <Content Include="Views\Home\ItemToEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

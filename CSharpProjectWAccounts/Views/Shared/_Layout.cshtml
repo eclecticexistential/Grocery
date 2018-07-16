@@ -21,31 +21,43 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li></li>
                     <li>@Html.ActionLink("Plant", "Plant", "Inventory")</li>
                     <li>@Html.ActionLink("Meat", "Meat", "Inventory")</li>
                     <li>@Html.ActionLink("Baking", "Baking", "Inventory")</li>
                     <li>@Html.ActionLink("Recipes", "Recipes", "Inventory")</li>
                     @*checks to see who is logged in
-                            initializes context, makes instance of grocery items, turns into list for count method.
-                        establishes when to show shopping cart button*@
+            initializes context, makes instance of grocery items, turns into list for count method.
+        establishes when to show shopping cart button*@
                     @using (var _groceryRepoItems = new GroceryContext())
-                    {
-                        //var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                        if (user != null)
-                        {
-                            var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
-                            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Value).ToList();
-                            if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
-                            {
-                                <li>
-                                    @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", User, new { @class = "btn btn-default" })
-                                </li>
-                            }
-                        }
-
-                    }
+    {
+        //var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+        var admin = User.Identity.Name;
+        if (user != null)
+        {
+            var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
+            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Value).ToList();
+            if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
+            {
+                <li>
+                    @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", User, new { @class = "btn btn-default" })
+                </li>
+}
+}
+if (admin == "admin@email.com")
+{
+                <li>
+                    @Html.ActionLink("Add Items", "UpdateInventory", "Home", User, new { @class = "btn btn-primary" })
+                </li>
+                <li>
+                    @Html.ActionLink("Edit Items", "ItemToEdit", "Home", User, new { @class = "btn btn-default" })
+                </li>
+                <li>
+                    @Html.ActionLink("Remove Items", "RemoveItems", "Home", User, new { @class = "btn btn-warning" })
+                </li>
+}
+}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

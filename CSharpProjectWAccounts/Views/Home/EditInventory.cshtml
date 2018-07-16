@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Edit Inventory";
+    string itemStringId = Session["ItemId"].ToString();
+}
+
+@using (var inventory = new GroceryContext())
+{
+    var getInventoryList = inventory.GroceryItems.ToList();
+    var editItem = getInventoryList.SingleOrDefault(x => x.Id == Int32.Parse(itemStringId));
+    List<string> stringTypes = new List<string>();
+    List<string> stringCategories = new List<string>();
+    List<SelectListItem> inventoryTypes = new List<SelectListItem>();
+    List<SelectListItem> inventoryFoodCategories = new List<SelectListItem>();
+    foreach (var stock in getInventoryList)
+    {
+        var typeInList = stringTypes.SingleOrDefault(x => x == stock.Type);
+        var foodInList = stringCategories.SingleOrDefault(x => x == stock.Food);
+        if (typeInList == null)
+        {
+            stringTypes.Add(stock.Type);
+            var nextType = new SelectListItem { Text = stock.Type, Value = stock.Type };
+            inventoryTypes.Add(nextType);
+        }
+        if (foodInList == null)
+        {
+            stringCategories.Add(stock.Food);
+            var nextFoodCategory = new SelectListItem { Text = stock.Food, Value = stock.Food };
+            inventoryFoodCategories.Add(nextFoodCategory);
+        }
+    }
+    <div class="container text-center">
+        <h2>Edit @editItem.ItemName</h2>
+        <div class="row form-group">
+            @using (Html.BeginForm())
+            {
+                if (itemStringId != null)
+                {
+                    @Html.Hidden("Id", editItem.Id)
+            <div>
+                @Html.Label("Item Name")
+                @Html.TextBox("ItemName", editItem.ItemName)
+            </div>
+            <div>
+                @Html.Label("Type of Food")
+                @Html.DropDownList("Type", inventoryTypes, "-- Select Type --")
+            </div>
+            <div>
+                @Html.Label("Item Price")
+                @Html.TextBox("Price", editItem.Price)
+            </div>
+            <div>
+                @Html.Label("Description")
+                @Html.TextBox("Description", editItem.Description)
+            </div>
+            <div>
+                @Html.Label("Quantity")
+                @Html.TextBox("Quantity", editItem.Quantity)
+            </div>
+            <div>
+                @Html.Label("Food Category")
+                @Html.DropDownList("Food", inventoryFoodCategories, "-- Select Food Category --")
+            </div>
+            <div>
+                <label for="CoverImageURL">
+                    Item Image
+                    <input class="form-control" type="text" name="URL" placeholder="Url of Image" />
+                </label>
+            </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                @Html.ActionLink("Cancel", "ItemToEdit", "Home", User, new { @class = "btn btn-warning" })
+                }
+                }
+            </div>
+        </div>
+}

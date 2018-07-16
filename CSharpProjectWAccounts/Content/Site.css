@@ -7,6 +7,10 @@
     background: dodgerblue;
 }
 
+.ml-1{
+    margin-left: 1em;
+}
+
 .ml-5 {
     margin: 0.25em auto;
 }

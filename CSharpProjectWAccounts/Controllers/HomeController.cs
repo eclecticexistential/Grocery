@@ -1,4 +1,5 @@
 ﻿using CSharpProjectWAccounts.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -65,6 +66,65 @@ namespace CSharpProjectWAccounts.Controllers
                 _groceryRepoItems.SaveChanges();
             }
             ViewBag.Message = "Item Saved.";
+            return View();
+        }
+
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult ItemToEdit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult ItemToEdit(string ItemToEdit)
+        {
+            Session["ItemId"] = ItemToEdit;
+            return RedirectToAction("EditInventory");
+        }
+
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult EditInventory()
+        {
+            ViewBag.Message = "Edit the Item";
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult EditInventory(AdminAddItem newItem, string URL)
+        {
+            if(URL != "")
+            {
+                newItem.CoverImageURL(URL);
+            }
+            using (var _groceryRepoItems = new GroceryContext())
+            {
+                var itemToEdit =_groceryRepoItems.GroceryItems.SingleOrDefault(x => x.Id == newItem.Id);
+                //when product name is changed but not the image, jpeg will not render
+                if(itemToEdit != newItem)
+                {
+                    itemToEdit = newItem;
+                }
+                _groceryRepoItems.SaveChanges();
+            }
+            ViewBag.Message = "Item Updated.";
+            return RedirectToAction("ItemToEdit");
+        }
+
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult RemoveItems()
+        {
+            ViewBag.Message = "Pick Item to Remove";
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Users = "admin@email.com")]
+        public ActionResult RemoveItems(RemoveItemsForm itemsToRemove)
+        {
+            itemsToRemove.RemoveTheseItems();
+            ViewBag.Message = "Item Removed.";
             return View();
         }
     }
