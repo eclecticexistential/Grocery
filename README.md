@@ -20,6 +20,18 @@ Users can share their favorite meal ideas by adding personalized ingredients and
 
 ![Add Recipe](https://raw.githubusercontent.com/eclecticexistential/CSharpProject/master/Grocery/Images/README/AddRecipe.PNG)
 
-Latest Update: In order to add items to the shopping cart now, users are required to login. To-date, registration has no email or phone verification set up.
+Users are now required to login before they can add items to Shopping Cart. To-date, registration has no email or phone verification set up.
 
 ![User Login](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+
+Admin access is now available and equipped with a dashboard which appears at login.
+
+![Add Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+
+Admin can add to or remove items from inventory.
+
+![Remove Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
+
+...Or pick an item and edit the details.
+
+![Edit Items](https://raw.githubusercontent.com/eclecticexistential/CSharpProjectWithAccounts/master/CSharpProjectWAccounts/Images/README/UserLogin.PNG)
