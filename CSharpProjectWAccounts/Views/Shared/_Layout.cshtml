@@ -41,7 +41,7 @@
             if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
             {
                 <li>
-                    @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", User, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Go to Shopping Cart", "ShoppingCart", "Inventory", User, new { @class = "btn btn-default" })
                 </li>
 }
 }

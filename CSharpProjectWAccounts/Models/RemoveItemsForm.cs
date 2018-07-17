@@ -14,6 +14,7 @@ namespace CSharpProjectWAccounts.Models
         public string Other { get; set; }
         public string Pork { get; set; }
         public string Vegetable { get; set; }
+        public string Fruit { get; set; }
         public void RemoveTheseItems()
         {
             using(var _groceryList = new GroceryContext())
@@ -52,6 +53,11 @@ namespace CSharpProjectWAccounts.Models
                 {
                     var vegeRem = _groceryList.GroceryItems.SingleOrDefault(x => x.ItemName == Vegetable);
                     _groceryList.GroceryItems.Remove(vegeRem);
+                }
+                if (Fruit != null)
+                {
+                    var fruitRem = _groceryList.GroceryItems.SingleOrDefault(x => x.ItemName == Fruit);
+                    _groceryList.GroceryItems.Remove(fruitRem);
                 }
                 _groceryList.SaveChanges();
             }

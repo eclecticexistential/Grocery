@@ -35,3 +35,15 @@ Admin can add to or remove items from inventory.
 ...Or pick an item and edit the details.
 
 ![Edit Items](https://raw.githubusercontent.com/eclecticexistential/Grocery/master/CSharpProjectWAccounts/Images/README/EditItems.PNG)
+
+## To Run App Locally
+1. Install Visual Studios
+2. Download Project Files
+3. Create SQL Server Named MSSQLLocalDB
+4. Click Run
+
+### To Imitate Shopping Experience
+* Make New User Account
+
+### To Test Admin Dashboard
+* Register Email as admin@email.com
