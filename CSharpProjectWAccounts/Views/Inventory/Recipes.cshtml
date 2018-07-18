@@ -18,20 +18,20 @@
         foreach (var recipeInfo in recipeList)
         {
             var recipeIngredientList = recipeInfo.Item.ToArray();
-                <div class="col-sm-4">
+                <div class="col-sm-4 h-3">
                     <h4>@recipeInfo.RecipeName - $@recipeIngredientList.Sum(x => x.Price).00</h4>
                     <div class="row">
                         @foreach (var item in recipeIngredientList)
     {
         if (item.Quantity > 0)
                 {
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <img src="/Images/@item.CoverImageFileName" alt="@item.ItemName" class="image-responsive h-7" /> <p>@item.ItemName $@item.Price.00</p>
                             </div>
         }
         else
         {
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <img src="/Images/@item.CoverImageFileName" alt="@item.ItemName" class="image-responsive h-7" /> <p>@item.ItemName - OUT OF STOCK</p>
                             </div>
         }
@@ -41,7 +41,7 @@
                     @*sends recipeName*@
                     @using (Html.BeginForm())
                     {
-                    <button type="submit" class="btn btn-primary" value="@recipeInfo.RecipeName" name="recipeName">Add</button>
+                    <button type="submit" class="btn btn-primary auto-top" value="@recipeInfo.RecipeName" name="recipeName">Add</button>
                     }
                 </div>
             }

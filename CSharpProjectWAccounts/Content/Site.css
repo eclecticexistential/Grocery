@@ -19,12 +19,25 @@
     margin: 0 0 1em;
 }
 
+.auto-top{
+    margin: auto;
+}
+
 .mb-5{
     min-height: 5em;
 }
 
 .h-5{
     max-height: 6em;
+}
+
+.h-3{
+    min-height: 29em;
+    padding: 1em;
+}
+
+.h-4{
+    min-height: 5em;
 }
 
 .h-2{
