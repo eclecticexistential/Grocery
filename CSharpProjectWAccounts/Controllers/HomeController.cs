@@ -95,37 +95,8 @@ namespace CSharpProjectWAccounts.Controllers
         [Authorize(Users = "admin@email.com")]
         public ActionResult EditInventory(Items newItem, string URL)
         {
-            using (var _groceryRepoItems = new GroceryContext())
-            {
-                var itemToEdit =_groceryRepoItems.GroceryItems.SingleOrDefault(x => x.Id == newItem.Id);
-                AdminAddItem saveImageForItem = new AdminAddItem();
-                if (URL != "")
-                {
-                    saveImageForItem.CoverImageURL(newItem.ItemName, URL);
-                }
-                if (itemToEdit != newItem)
-                {
-                    if(itemToEdit.ItemName != newItem.ItemName && URL == "")
-                    {
-                        saveImageForItem.UpdateImageLocation(itemToEdit.ItemName, newItem.ItemName);
-                    }
-                    if(newItem.Type == null)
-                    {
-                        newItem.Type = itemToEdit.Type;
-                    }
-                    if(newItem.Food == null)
-                    {
-                        newItem.Food = itemToEdit.Food;
-                    }
-                    if(newItem.ItemName == null)
-                    {
-                        newItem.ItemName = itemToEdit.ItemName;
-                    }
-                    _groceryRepoItems.GroceryItems.Remove(itemToEdit);
-                    _groceryRepoItems.GroceryItems.Add(newItem);
-                    _groceryRepoItems.SaveChanges();
-                }
-            }
+            var saveHere = new AdminEdit();
+            saveHere.SaveEdits(newItem, URL);
             ViewBag.Message = "Item Updated.";
             return RedirectToAction("ItemToEdit");
         }

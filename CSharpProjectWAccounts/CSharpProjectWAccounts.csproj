@@ -201,6 +201,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddIngredientList.cs" />
     <Compile Include="Models\AdminAddItem.cs" />
+    <Compile Include="Models\AdminEdit.cs" />
+    <Compile Include="Models\GetSelectListItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\ItemToShoppingCartItemFactory.cs" />
@@ -216,6 +218,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\JavaScript.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

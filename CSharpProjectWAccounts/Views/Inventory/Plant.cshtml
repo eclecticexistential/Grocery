@@ -17,19 +17,16 @@
                         <div class="col-md-2 h-2">
                             <h4>@fruitType.ItemName</h4>
                             <img src="/Images/@fruitType.CoverImageFileName" alt="@fruitType.ItemName" class="h-5 image-responsive" />
+                            <h3>$@fruitType.Price.00</h3>
+                            <p class="mb-5"><bold>@fruitType.Description</bold></p>
                             @if (fruitType.Quantity > 0)
-    {
-                        <h3>$@fruitType.Price.00</h3>
-                        <p class="mb-5"><bold>@fruitType.Description</bold></p>
-                        <button type="submit" class="btn btn-primary auto" name="Item" value="@fruitType.Id">Add to Cart</button>
-}
-else
-{
-                        <h3>$@fruitType.Price.00</h3>
-                        <p class="mb-5"><bold>@fruitType.Description</bold></p>
-                        <h5>OUT OF STOCK</h5>
-}
-
+                            {
+                                <button type="submit" class="btn btn-primary auto" name="Item" value="@fruitType.Id">Add to Cart</button>
+                            }
+                            else
+                            {
+                                <h5>OUT OF STOCK</h5>
+                            }
                         </div>
                     </div>
                 }
@@ -42,18 +39,16 @@ else
                         <div class="col-md-2 h-2">
                             <h4>@vegeType.ItemName</h4>
                             <img src="/Images/@vegeType.CoverImageFileName" alt="@vegeType.ItemName" class="h-5 image-responsive" />
+                            <h3>$@vegeType.Price.00</h3>
+                            <p class="mb-5"><bold>@vegeType.Description</bold></p>
                             @if (vegeType.Quantity > 0)
-    {
-                        <h3>$@vegeType.Price.00</h3>
-                        <p class="mb-5"><bold>@vegeType.Description</bold></p>
-                        <button type="submit" class="btn btn-primary auto" name="Item" value="@vegeType.Id">Add to Cart</button>
-}
-else
-{
-                        <h3>$@vegeType.Price.00</h3>
-                        <p class="mb-5"><bold>@vegeType.Description</bold></p>
-                        <h5>OUT OF STOCK</h5>
-}
+                            {
+                                <button type="submit" class="btn btn-primary auto" name="Item" value="@vegeType.Id">Add to Cart</button>
+                            }
+                            else
+                            {
+                                <h5>OUT OF STOCK</h5>
+                            }
                         </div>
                     </div>
                 }
@@ -66,19 +61,16 @@ else
                     <div class="col-md-2 h-2">
                         <h4>@grainType.ItemName</h4>
                         <img src="/Images/@grainType.CoverImageFileName" alt="@grainType.ItemName" class="h-5 image-responsive" />
+                        <h3>$@grainType.Price.00</h3>
+                        <p class="mb-5"><bold>@grainType.Description</bold></p>
                         @if (grainType.Quantity > 0)
-    {
-                    <h3>$@grainType.Price.00</h3>
-                    <p class="mb-5"><bold>@grainType.Description</bold></p>
-                    <button type="submit" class="btn btn-primary auto" name="Item" value="@grainType.Id">Add to Cart</button>
-}
-
-else
-{
-                    <h3>$@grainType.Price.00</h3>
-                    <p class="mb-5"><bold>@grainType.Description</bold></p>
-                    <h5>OUT OF STOCK</h5>
-}
+                        {
+                            <button type="submit" class="btn btn-primary auto" name="Item" value="@grainType.Id">Add to Cart</button>
+                        }
+                        else
+                        {
+                            <h5>OUT OF STOCK</h5>
+                        }
                     </div>
                 </div>
             }

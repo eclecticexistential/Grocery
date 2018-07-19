@@ -17,13 +17,16 @@ namespace CSharpProjectWAccounts.Models
         public string Description { get; set; }
         public string Name { get; set; }
         public string Vegetable { get; set; }
-        public string Vegetables { get; set; }
+        public string Vegetable1 { get; set; }
+        public string Vegetable2 { get; set; }
+        public string Vegetable3 { get; set; }
 
         private RecipeItems newRecipe = new RecipeItems();
         public void AddFromForm()
         {
             AddIngredientList stubToUse = new AddIngredientList();
-            List<string> ingredientList = new List<string> { Name, Beef, Chicken, Grain, Ingredient, Ingredients, Other, Pork, Vegetable, Vegetables};
+            List<string> ingredientList = new List<string>
+            { Name, Beef, Chicken, Grain, Ingredient, Ingredients, Other, Pork, Vegetable, Vegetable1, Vegetable2, Vegetable3 };
             stubToUse.AddIngredients(ingredientList);
             using(var recipeRepoItems = new GroceryContext())
             {

@@ -14,15 +14,15 @@
             var singleItemDetails = _groceryRepoItems.GroceryItems.Include("ShoppingCartItems").Where(gi => gi.ShoppingCartItems.Where(x => x.UserId == user).Any());
 
         @*determines what message to show during shopping experience*@
-    if (cartItems.Length == 0)
-    {
-                    <h3>Thank You For Shopping With Us!</h3>
-    }
-    else
-    {
-                    <p>@ViewBag.Message</p>
-                    <h4>Total Price of Purchase: $@cartItems.Sum(x => x.Item.Price).00</h4>
-    }
+        if (cartItems.Length == 0)
+        {
+            <h3>Thank You For Shopping With Us!</h3>
+        }
+        else
+        {
+            <p>@ViewBag.Message</p>
+            <h4>Total Price of Purchase: $@cartItems.Sum(x => x.Item.Price).00</h4>
+        }
 
                 <table class="table table-striped">
                     <thead>

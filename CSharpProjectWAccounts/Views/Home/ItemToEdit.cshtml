@@ -1,22 +1,15 @@
-﻿@using (var inventory = new GroceryContext())
-{
-    var getInventoryList = inventory.GroceryItems.ToList();
-    List<SelectListItem> inventoryItemsList = new List<SelectListItem>();
-    foreach (var stock in getInventoryList)
-    {
-        var addItem = new SelectListItem { Text = stock.ItemName, Value = stock.Id.ToString() };
-        inventoryItemsList.Add(addItem);
-    }
-    <div class="container text-center">
-        <h2>Pick Item to Edit</h2>
-        <p>@ViewBag.Message</p>
-        <div class="row form-group">
-            @using (Html.BeginForm())
-            {
-                @Html.DropDownList("ItemToEdit", inventoryItemsList, "-- Select Item --"); //need to get this value to populate form
-                <button type="submit" class="btn btn-primary">Get Item</button>
-            }
+﻿@using CSharpProjectWAccounts.Models;
+<div class="container text-center">
+    <h2>Pick Item to Edit</h2>
+    <p>@ViewBag.Message</p>
+    <div class="row form-group">
+        @using (Html.BeginForm())
+        {
+            var GoToGrocery = new GetSelectListItem();
+            var GroceryList = GoToGrocery.GetGroceryList();
+            @Html.DropDownList("ItemToEdit", GroceryList, "-- Select Item --"); //need to get this value to populate form
+            <button type="submit" class="btn btn-primary">Get Item</button>
+        }
 
-        </div>
     </div>
-}
+</div>

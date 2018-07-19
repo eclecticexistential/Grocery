@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CSharpProjectWAccounts.Models;
+@{
     ViewBag.Title = "Update Inventory";
 }
 <div class="container text-center">
@@ -6,61 +7,40 @@
     <p>@ViewBag.Message</p>
     <div class="row form-group">
         @using (var inventory = new GroceryContext())
-    {
-        var getInventoryList = inventory.GroceryItems.ToList();
-        List<string> stringTypes = new List<string>();
-        List<string> stringCategories = new List<string>();
-        List<SelectListItem> inventoryTypes = new List<SelectListItem>();
-        List<SelectListItem> inventoryFoodCategories = new List<SelectListItem>();
-        foreach (var stock in getInventoryList)
-        {
-            var typeInList = stringTypes.SingleOrDefault(x => x == stock.Type);
-            var foodInList = stringCategories.SingleOrDefault(x => x == stock.Food);
-            if (typeInList == null)
-            {
-                stringTypes.Add(stock.Type);
-                var nextType = new SelectListItem { Text = stock.Type, Value = stock.Type };
-                inventoryTypes.Add(nextType);
-            }
-            if (foodInList == null)
-            {
-                stringCategories.Add(stock.Food);
-                var nextFoodCategory = new SelectListItem { Text = stock.Food, Value = stock.Food };
-                inventoryFoodCategories.Add(nextFoodCategory);
+                    {
+                        var goToGrocery = new GetSelectListItem();
+                        using (Html.BeginForm())
+                        {
+                <label for="ItemName">
+                    Name Item
+                    <input class="form-control" type="text" name="ItemName" placeholder="Item Name" />
+                </label>
+                <div class="p-3">
+                    <h5>Add Type</h5>
+                    @Html.DropDownList("Type", goToGrocery.GetGroceryTypes(), "-- Select Type --")
+                </div>
+                <label for="Price">
+                    Item Price
+                    <input class="form-control" type="text" name="Price" placeholder="Price" />
+                </label>
+                <label for="Description">
+                    Item Description
+                    <input class="form-control" type="text" name="Description" placeholder="Describe Item" />
+                </label>
+                <label for="Quantity">
+                    Quantity of Items
+                    <input class="form-control" type="text" name="Quantity" placeholder="Stock Quantity" />
+                </label>
+                <div class="p-3">
+                    <h5>Add Food Category</h5>
+                    @Html.DropDownList("Food", goToGrocery.GetGroceryFoods(), "-- Select Food --")
+                </div>
+                <label for="CoverImageURL">
+                    Item Image
+                    <input class="form-control" type="text" name="URL" placeholder="Url of Image" />
+                </label>
+                <button type="submit" class="btn btn-primary">Save</button>
             }
         }
-        using (Html.BeginForm())
-        {
-            <label for="ItemName">
-                Name Item
-                <input class="form-control" type="text" name="ItemName" placeholder="Item Name" />
-            </label>
-            <div class="p-3">
-                <h5>Add Type</h5>
-                @Html.DropDownList("Type", inventoryTypes, "-- Select Type --")
-            </div>
-            <label for="Price">
-                Item Price
-                <input class="form-control" type="text" name="Price" placeholder="Price" />
-            </label>
-            <label for="Description">
-                Item Description
-                <input class="form-control" type="text" name="Description" placeholder="Describe Item" />
-            </label>
-            <label for="Quantity">
-                Quantity of Items
-                <input class="form-control" type="text" name="Quantity" placeholder="Stock Quantity" />
-            </label>
-            <div class="p-3">
-                <h5>Add Food Category</h5>
-                @Html.DropDownList("Food", inventoryFoodCategories, "-- Select Food --")
-            </div>
-            <label for="CoverImageURL">
-                Item Image
-                <input class="form-control" type="text" name="URL" placeholder="Url of Image" />
-            </label>
-            <button type="submit" class="btn btn-primary">Save</button>
-    }
-}
     </div>
 </div>
