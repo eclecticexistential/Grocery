@@ -23,7 +23,8 @@ namespace CSharpProjectWAccounts.Controllers
             if (ModelState.IsValid)
             {
                 var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
-                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                //var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                var user = User.Identity.Name;
                 ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Plant");
             }
@@ -48,7 +49,7 @@ namespace CSharpProjectWAccounts.Controllers
             if (ModelState.IsValid)
             {
                 var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
-                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                var user = User.Identity.Name;
                 ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Meat");
             }
@@ -74,7 +75,7 @@ namespace CSharpProjectWAccounts.Controllers
             if (ModelState.IsValid)
             {
                 var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
-                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                var user = User.Identity.Name;
                 ItemToShoppingCartItemFactory.TransformItem(Item, user);
                 return RedirectToAction("Baking");
             }
@@ -100,7 +101,7 @@ namespace CSharpProjectWAccounts.Controllers
                 {
                     var matchRecipeName = _groceryRepoItems.ListOfRecipes.SingleOrDefault(m => m.RecipeName == recipeName);
                     var ItemToShoppingCartItemFactory = new ItemToShoppingCartItemFactory();
-                    var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                    var user = User.Identity.Name;
                     foreach (var name in matchRecipeName.Item)
                     {
                         ItemToShoppingCartItemFactory.TransformItem(name.Id.ToString(), user);
@@ -148,7 +149,7 @@ namespace CSharpProjectWAccounts.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+                var user = User.Identity.Name;
                 var cartLogic = new ShoppingCartLogic();
                 cartLogic.AdjustCart(ItemId, user, math);
                 return RedirectToAction("ShoppingCart");

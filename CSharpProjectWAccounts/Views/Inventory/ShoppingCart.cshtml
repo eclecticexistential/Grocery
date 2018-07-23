@@ -7,8 +7,9 @@
     <h2>@ViewBag.Title</h2>
     @using (var _groceryRepoItems = new GroceryContext())
     {
-        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
-        if (user != null)
+        //var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+        var user = User.Identity.Name;
+        if (user != "")
         {
             var cartItems = _groceryRepoItems.ShoppingCartItems.Where(x => x.UserId == user).ToArray();
             var singleItemDetails = _groceryRepoItems.GroceryItems.Include("ShoppingCartItems").Where(gi => gi.ShoppingCartItems.Where(x => x.UserId == user).Any());

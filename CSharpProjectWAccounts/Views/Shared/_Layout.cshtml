@@ -32,12 +32,13 @@
                     @using (var _groceryRepoItems = new GroceryContext())
     {
         //var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-        var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-        var admin = User.Identity.Name;
-        if (user != null)
+        //var user = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+        // above needs user.Value to function properly and user != null instead of ""
+        var user = User.Identity.Name;
+        if (user != "")
         {
             var groceryQuery = from gi in _groceryRepoItems.ShoppingCartItems select gi;
-            var userShoppingCart = groceryQuery.Where(x => x.UserId == user.Value).ToList();
+            var userShoppingCart = groceryQuery.Where(x => x.UserId == user).ToList();
             if (userShoppingCart.Count > 0 && ViewBag.ShoppingCart == true)
             {
                 <li>
@@ -45,7 +46,7 @@
                 </li>
 }
 }
-if (admin == "admin@email.com")
+if (user == "admin@email.com")
 {
                 <li>
                     @Html.ActionLink("Add Items", "UpdateInventory", "Home", User, new { @class = "btn btn-primary" })
