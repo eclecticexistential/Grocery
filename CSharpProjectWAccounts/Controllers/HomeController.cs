@@ -36,14 +36,14 @@ namespace CSharpProjectWAccounts.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About Grocery";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "For More Information Get in Touch With Developer Today!";
 
             return View();
         }

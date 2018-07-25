@@ -69,7 +69,7 @@ if (user == "admin@email.com")
         @RenderBody()
         <hr />
         <footer>
-            <p class="text-center">&copy; @DateTime.Now.Year - Grocery</p>
+            <p class="text-center">@Html.ActionLink("Contact", "Contact", "Home") &copy; @DateTime.Now.Year - Grocery @Html.ActionLink("About", "About", "Home")</p>
         </footer>
     </div>
 
